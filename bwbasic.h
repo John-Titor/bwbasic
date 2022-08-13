@@ -176,6 +176,10 @@
 
 #define HAVE_MSDOS  TRUE
 
+#elif defined(_OSK)
+
+#define HAVE_OS9
+
 #else
 /*
 **
@@ -396,6 +400,36 @@
 
 #endif /* HAVE_MVS */
 
+/*-----------------------------------------------------------*/
+
+#ifdef HAVE_OS9
+/*
+** UltraC for OS-9 68K
+*/
+#include <UNIX/os9def.h>
+#include <modes.h>
+
+#ifndef   DIRECTORY_CMDS
+#define   DIRECTORY_CMDS     TRUE
+#endif /* DIRECTORY_CMDS */
+
+#ifndef   MKDIR_ONE_ARG
+#define   MKDIR_ONE_ARG      TRUE
+#endif /* MKDIR_ONE_ARG */
+
+#ifndef   DEF_EDITOR
+#define   DEF_EDITOR         "umacs"
+#endif /* DEF_EDITOR */
+
+#ifndef   HAVE_UNIX_GCC
+#define   HAVE_UNIX_GCC      FALSE
+#endif /* HAVE_UNIX_GCC */
+
+#define chdir(_a) _os_chdir (_a, 0)
+#define mkdir(_a) _os_makdir (_a, 0, S_IOREAD|S_IREAD|S_IWRITE)
+#define rmdir(_a) _os_delete (_a, 0)
+
+#endif /* HAVE_OS9 */
 
 /***************************************************************
   

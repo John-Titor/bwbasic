@@ -6571,7 +6571,11 @@ ProcessEscapeChars (const char *Input, char *Output)
       *Output = 'f';
       Output++;
       break;
+#ifdef HAVE_OS9
+    case 0x0a:  /* OSK defines \n as \r */
+#else
     case '\n':
+#endif
       *Output = '\\';
       Output++;
       *Output = 'n';

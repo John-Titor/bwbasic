@@ -2716,7 +2716,11 @@ bwb_chartype (int C)
   case EOF:
     return 0;                        /* Special Case */
   case '\t':
-  case '\n':
+#ifdef HAVE_OS9
+  case 0x0a:
+#else
+  case '\n':  /* OSK defines \n as \r */
+#endif
   case '\v':
   case '\f':
   case '\r':
