@@ -1,6 +1,14 @@
 # Makefile for OS-9 M68k
+#
+# Don't invoke this directly; use osk_make.bat or osk_make.sh
+#
+-e
+-b
 
-PROG		= bwbasic.osk
+ifndef ODIR
+ODIR		= .
+endif
+PROG		= $(ODIR)/bwbasic
 SRCS		+= bwb_cmd.c
 SRCS		+= bwb_cnd.c
 SRCS		+= bwb_dio.c
@@ -19,7 +27,7 @@ SRCS		+= bwd_fun.c
 SRCS		+= bwx_tty.c
 MAKER		= osk_make.make
 DEPS		= $(MAKER)
-CFLAGS		= -i -o=7 -l=unix.l
+CFLAGS		= -b -i -o=7 -l=unix.l -olM=64k -olfpegeoe
 
 $(PROG):	$(SRCS) $(DEPS)
 	xcc -f=$(PROG) $(CFLAGS) $(SRCS)
